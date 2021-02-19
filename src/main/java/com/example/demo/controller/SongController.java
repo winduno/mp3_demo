@@ -1,15 +1,13 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Album;
 import com.example.demo.model.Song;
 import com.example.demo.service.Song.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -31,5 +29,10 @@ public class SongController {
         Optional<Song> optionalSong = this.songService.findById(id);
         return optionalSong.map(result -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @PostMapping
+    public ResponseEntity<Song> createSong(@RequestBody Song song){
+        return new ResponseEntity<>(this.songService.save(song), HttpStatus.OK);
     }
 }
