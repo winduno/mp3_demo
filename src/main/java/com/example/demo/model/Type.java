@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,9 +17,10 @@ public class Type {
 
     private String image;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "types")
     private List<Subject> subjects;
 
-    @OneToOne(mappedBy = "type")
-    private Song song;
+    @OneToMany(mappedBy = "types")
+    private List<Song> song;
 }

@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -20,17 +21,22 @@ public class Song {
 
     private String link;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "albumId")
     private Album album;
 
-    @OneToOne(mappedBy = "song")
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "bannerId")
     private Banner banner;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "typeId")
-    private Type type;
+    private Type types;
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "songs")
     private List<Playlist> playlists;
 }

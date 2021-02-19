@@ -3,6 +3,7 @@ package com.example.demo.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -15,7 +16,6 @@ public class Banner {
 
     private String content;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "songId")
-    private Song song;
+    @OneToMany(mappedBy = "banner")
+    private List<Song> songs;
 }
