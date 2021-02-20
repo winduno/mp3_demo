@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Album;
+import com.example.demo.model.Song;
 import com.example.demo.service.Album.IAlbumService;
+import com.example.demo.service.Song.ISongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,9 @@ public class AlbumController {
     @Autowired
     private IAlbumService albumService;
 
+    @Autowired
+    private ISongService songService;
+
     @GetMapping
     public ResponseEntity<Iterable<Album>> getAllAlbum() {
         return new ResponseEntity<>(this.albumService.getAll(), HttpStatus.OK);
@@ -33,5 +38,18 @@ public class AlbumController {
     @PostMapping
     public ResponseEntity<Album> createAlbum(@RequestBody Album album){
         return new ResponseEntity<>(this.albumService.save(album), HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Song> addSongToAlbum(@PathVariable Long id, @RequestBody(required = false) Song song){
+        Optional<Album> optionalAlbum = this.albumService.findById(id);
+        Optional<Song> optionalSong = this.songService.findById(song.getId());
+        if (optionalAlbum.isPresent() && optionalSong.isPresent()){
+            Song saveSong = optionalSong.get();
+            saveSong.setAlbum(optionalAlbum.get());
+            return new ResponseEntity<>(this.songService.save(saveSong), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
@@ -21,6 +22,7 @@ public class Type {
     @ManyToMany(mappedBy = "types")
     private List<Subject> subjects;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "types")
     private List<Song> song;
 }

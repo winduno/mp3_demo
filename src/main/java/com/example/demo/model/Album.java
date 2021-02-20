@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ public class Album {
 
     private String image;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "album")
     private List<Song> songs;
 
