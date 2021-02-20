@@ -27,8 +27,7 @@ public class Song {
     private Album album;
 
     @JsonIgnore
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "bannerId")
+    @OneToOne(mappedBy = "song")
     private Banner banner;
 
     @JsonIgnore

@@ -16,6 +16,7 @@ public class Banner {
 
     private String content;
 
-    @OneToMany(mappedBy = "banner")
-    private List<Song> songs;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "songId")
+    private Song song;
 }
