@@ -1,7 +1,10 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Album;
+import com.example.demo.model.Song;
 import com.example.demo.model.Subject;
 import com.example.demo.model.Type;
+import com.example.demo.service.Song.ISongService;
 import com.example.demo.service.Type.ITypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +22,9 @@ public class TypeController {
     @Autowired
     private ITypeService typeService;
 
+    @Autowired
+    private ISongService songService;
+
     @GetMapping
     public ResponseEntity<Iterable<Type>> getAllType() {
         return new ResponseEntity<>(this.typeService.getAll(), HttpStatus.OK);
@@ -34,5 +40,18 @@ public class TypeController {
     @PostMapping
     public ResponseEntity<Type> createAlbum(@RequestBody Type type){
         return new ResponseEntity<>(this.typeService.save(type), HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<Song> addSongToAlbum(@PathVariable Long id, @RequestBody(required = false) Song song){
+        Optional<Type> optionalType = this.typeService.findById(id);
+        Optional<Song> optionalSong = this.songService.findById(song.getId());
+        if (optionalType.isPresent() && optionalSong.isPresent()){
+            Song saveSong = optionalSong.get();
+            saveSong.setTypes(optionalType.get());
+            return new ResponseEntity<>(this.songService.save(saveSong), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
     }
 }
