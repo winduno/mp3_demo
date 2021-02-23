@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -34,5 +35,10 @@ public class SongController {
     @PostMapping
     public ResponseEntity<Song> createSong(@RequestBody Song song){
         return new ResponseEntity<>(this.songService.save(song), HttpStatus.OK);
+    }
+
+    @GetMapping("/like")
+    public ResponseEntity<List<Song>> getSongByLikeASC(){
+        return new ResponseEntity<>(this.songService.getSongByLikeASC(), HttpStatus.OK);
     }
 }
