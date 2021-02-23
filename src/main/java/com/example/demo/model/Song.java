@@ -23,6 +23,8 @@ public class Song {
 
     private String link;
 
+    private int likes;
+
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "albumId")
     private Album album;
