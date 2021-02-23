@@ -3,8 +3,10 @@ package com.example.demo.service.Song;
 import com.example.demo.model.Song;
 import com.example.demo.repository.SongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,6 +38,7 @@ public class SongService implements ISongService {
 
     @Override
     public List<Song> getSongByLikeASC(){
-        return songRepository.findAllByOrOrderByLikesAsc();
+        List<Song> songs = songRepository.findAll(Sort.by(Sort.Direction.DESC, "like"));
+        return songs;
     }
 }
