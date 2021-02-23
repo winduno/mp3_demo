@@ -38,7 +38,7 @@ public class SongService implements ISongService {
 
     @Override
     public List<Song> getSongByLikeASC(){
-        List<Song> songs = songRepository.findAll(Sort.by(Sort.Direction.DESC, "like"));
+        List<Song> songs = songRepository.findAll(Sort.by(Sort.Direction.DESC, "likes"));
         return songs;
     }
 }
