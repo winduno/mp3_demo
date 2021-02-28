@@ -22,7 +22,6 @@ public class Type {
     @ManyToMany(mappedBy = "types")
     private List<Subject> subjects;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "types")
     private List<Song> song;
 }

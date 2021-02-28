@@ -25,6 +25,7 @@ public class Song {
 
     private Long likes;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "albumId")
     private Album album;
@@ -33,6 +34,7 @@ public class Song {
     @OneToOne(mappedBy = "song")
     private Banner banner;
 
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "typeId")
     private Type types;

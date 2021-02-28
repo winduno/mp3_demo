@@ -19,7 +19,7 @@ public class Album {
 
     private String image;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "album")
     private List<Song> songs;
 
