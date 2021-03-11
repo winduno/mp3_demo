@@ -11,7 +11,7 @@ import java.util.List;
 
 @Data
 @Entity
-@JsonIgnoreProperties(value = {"album", "banner", "types", "playlists"}, allowSetters = true)
+@JsonIgnoreProperties(value = {"album", "banner", "types", "playlists"})
 public class Song {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
