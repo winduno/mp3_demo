@@ -20,7 +20,7 @@ public class Album {
     private String image;
 
 //    @JsonIgnore
-    @OneToMany(mappedBy = "album")
+    @OneToMany(mappedBy = "album", fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Song> songs;
 
 }
